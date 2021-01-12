@@ -11,10 +11,11 @@ OLDver="v1.9.2"
 comment="Based on the script $OLD_title $OLDver"
 
 
-#-----------------
-#типовые функции
-#-----------------
+##------------------≠------------------
+## типовые функции
+##------------------≠------------------
 
+##------------------≠------------------
 #для рабты с цветами
 normal="\033[0m"
 green="\033[32m"
@@ -28,28 +29,28 @@ color()
 {
 case "$1" in
   normal|default)
-    sed -i -e 's/^textcolor=.*/textcolor=$normal/' -e 's/^bgcolor=.*/bgcolor=$normal/' breeze.sh #меняем переменную в самом скрипте
-    textcolor=$normal	#меняем переменную в текущей сессии
-    bgcolor=$normal	#меняем переменную в текущей сессии
-    chosen=0		#выходим из терминала в главное меню
+    sed -i -e 's/^textcolor=.*/textcolor=$normal/' -e 's/^bgcolor=.*/bgcolor=$normal/' needress.sh #меняем переменную в самом скрипте
+    textcolor=$normal #меняем переменную в текущей сессии
+    bgcolor=$normal #меняем переменную в текущей сессии
+    chosen=0 #выходим из терминала в главное меню
   ;;
-    blue)
-    sed -i -e 's/^textcolor=.*/textcolor=$blue/' -e 's/^bgcolor=.*/bgcolor=$black/' breeze.sh #меняем переменную в самом скрипте
-    textcolor=$blue	#меняем переменную в текущей сессии
-    bgcolor=$black	#меняем переменную в текущей сессии
-    chosen=0		#выходим из терминала в главное меню
+  blue)
+    sed -i -e 's/^textcolor=.*/textcolor=$blue/' -e 's/^bgcolor=.*/bgcolor=$black/' needress.sh #меняем переменную в самом скрипте
+    textcolor=$blue #меняем переменную в текущей сессии
+    bgcolor=$black #меняем переменную в текущей сессии
+    chosen=0 #выходим из терминала в главное меню
   ;;
   green)
-    sed -i -e 's/^textcolor=.*/textcolor=$green/' -e 's/^bgcolor=.*/bgcolor=$black/' breeze.sh #меняем переменную в самом скрипте
-    textcolor=$green	#меняем переменную в текущей сессии
-    bgcolor=$black	#меняем переменную в текущей сессии
-    chosen=0		#выходим из терминала в главное меню
+    sed -i -e 's/^textcolor=.*/textcolor=$green/' -e 's/^bgcolor=.*/bgcolor=$black/' needress.sh #меняем переменную в самом скрипте
+    textcolor=$green #меняем переменную в текущей сессии
+    bgcolor=$black #меняем переменную в текущей сессии
+    chosen=0 #выходим из терминала в главное меню
   ;;
   red)
-    sed -i -e 's/^textcolor=.*/textcolor=$red/' -e 's/^bgcolor=.*/bgcolor=$black/' breeze.sh #меняем переменную в самом скрипте
-    textcolor=$red	#меняем переменную в текущей сессии
-    bgcolor=$black	#меняем переменную в текущей сессии
-    chosen=0		#выходим из терминала в главное меню
+    sed -i -e 's/^textcolor=.*/textcolor=$red/' -e 's/^bgcolor=.*/bgcolor=$black/' needress.sh #меняем переменную в самом скрипте
+    textcolor=$red #меняем переменную в текущей сессии
+    bgcolor=$black #меняем переменную в текущей сессии
+    chosen=0 #выходим из терминала в главное меню
   ;;
   *)
 echo "цвет указан неверно. Поддерживается только green, blue, red и default/normal"
@@ -57,10 +58,15 @@ echo "цвет указан неверно. Поддерживается тол�
 esac
 }
 
-my_clear() { echo -e "$textcolor$bgcolor";clear; }
+my_clear() { echo -e "$textcolor$bgcolor"; clear; }
 
-#функция, которая запрашивает только один символ
-myread() {
+
+
+##================ ≠≠≠ ================
+## функция, запрашивает только один символ
+##================ ≠≠≠ ================
+myread()
+{
 temp=""
 while [ -z "$temp" ] #защита от пустых значений
 do
@@ -70,7 +76,11 @@ eval $1=$temp
 echo
 }
 
+
+
+##==================≠==================
 #функция, которая запрашивает только да или нет
+##==================≠==================
 myread_yn()
 {
 temp=""
@@ -83,7 +93,10 @@ done
 eval $1=$temp
 }
 
+
+##==================≠==================
 #функция, которая запрашивает только цифру
+##==================≠==================
 myread_dig()
 {
 temp=""
@@ -98,7 +111,11 @@ done
 eval $1=$temp
 }
 
-#функция установки с проверкой не установлен ли уже пакет
+
+
+##==================≠==================
+# функция установки с проверкой не установлен ли уже пакет
+##==================≠==================
 myinstall()
 {
 if [ -z `rpm -qa $1` ]; then
@@ -109,17 +126,40 @@ else
 fi
 }
 
-title() { my_clear;echo "$title"; }
+title()
+{
+my_clear
+echo "$title"
+}
 
-menu() { my_clear; echo "$menu"; echo "Выберите пункт меню:"; }
+menu()
+{
+my_clear
+echo "$menu"
+echo "Выберите пункт меню:"
+}
 
-wait() { echo "Нажмите любую клавишу, чтобы продолжить..."; read -s -n 1; }
+wait()
+{
+echo "Нажмите любую клавишу, чтобы продолжить..."
+read -s -n 1
+}
 
-br() { echo ""; }
+br()
+{
+echo ""
+}
 
-updatescript() { wget $updpath/$filename -r -N -nd --no-check-certificate; chmod 777 $filename; }
+##------------------≠------------------
+updatescript()
+{
+wget $updpath/$filename -r -N -nd --no-check-certificate
+chmod 777 $filename
+}
 
-settimezone() {
+##------------------≠------------------
+settimezone()
+{
 /bin/cp /usr/share/zoneinfo/$1/$2  /etc/localtime
 echo "Новый часовой пояс установлен. Текущее время: $(date +%H:%M)."
 wait
@@ -179,6 +219,7 @@ repo () {
 			wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
 			wget https://rpms.remirepo.net/enterprise/remi-release-6.rpm
 			rpm -Uvh remi-release-6.rpm epel-release-latest-6.noarch.rpm
+      ##==================≠==================
 			#RepoForge
 			case "$arc" in
 				32)
@@ -188,6 +229,7 @@ repo () {
 				rpm -ivh http://repository.it4i.cz/mirrors/repoforge/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 				;;
 			esac
+      ##==================≠==================
 		#elrepo
 		rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 		yum install https://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
@@ -196,6 +238,7 @@ repo () {
 		echo "Будут добавлены репозитории EPEL, REMI, RepoForge (бывший RPMForge), ELRepo для CentOS 7"
 		wait
 		echo "Устанавливаем репозитории..."
+      ##==================≠==================
 		#RepoForge
 		rpm -ivh http://repository.it4i.cz/mirrors/repoforge/redhat/el7/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el7.rf.x86_64.rpm
 		#epel remi
@@ -212,6 +255,7 @@ repo () {
       esac
 }
 
+##------------------≠------------------
 iptables_save()
 {
 #проверка CentOS 7
@@ -221,6 +265,7 @@ fi
 service iptables save
 }
 
+##------------------≠------------------
 openport()
 {
 chain=$(echo $1 | tr [:lower:] [:upper:])
@@ -240,6 +285,8 @@ iptables -I $chain -p $2 --$t1 $3 -j ACCEPT #возможно в будущем 
 iptables_save
 }
 
+##==================≠==================
+## CentOS 6:
 webuzo_install()
 {
 openport in tcp 2004
@@ -249,6 +296,9 @@ sh install.sh
 rm -f install.sh
 }
 
+##==================≠==================
+##==========Centos Web Panel===========
+## CentOS 6:
 cwp_install()
 {
 openport in tcp 2030
@@ -258,17 +308,52 @@ sh cwp-latest
 rm -f cwp-latest
 }
 
+##==================≠==================
+## CentOS 7: Installer for CentOS 7 (recommended)
+cwp7_install()
+{
+openport in tcp 2030
+openport in tcp 2031
+cd / usr / local / src
+wget http://centos-webpanel.com/cwp-el7-latest
+sh cwp-el7-latest
+}
+
+##==================≠==================
+## CentOS 8: Installer for CentOS 8
+cwp8_install()
+{
+openport in tcp 2030
+openport in tcp 2031
+cd /usr/local/src
+wget http://centos-webpanel.com/cwp-el8-latest
+sh cwp-el8-latest
+}
+
+##==================≠==================
+##===============ZPanel================
+## CentOS 6:
 zpanel_install()
 {
-wget https://raw.githubusercontent.com/Brizovsky/Breeze-Easy-Shell/master/zpanel.sh
-sh zpanel.sh
+wget https://raw.githubusercontent.com/numbnet/Centos-Moduls/numbnet/WEBPANEL/CWP/Centos/6/cwp-el6-latest.sh
+sh cwp-el6-latest.sh
 rm -f zpanel.sh
 }
 
+##==================≠==================
+## CentOS 7:
+zpanel7_install()
+{
+wget https://raw.githubusercontent.com/numbnet/Centos-Moduls/numbnet/WEBPANEL/ZPANEL/installers/install/beta/CentOS_7/beta-Centos-7-10.1.1.sh
+sh beta-Centos-7-10.1.1.sh
+rm -f beta-Centos-7-10.1.1.sh
+}
+
+##------------------≠------------------
 ajenti_install()
 {
 openport in tcp 8000
-rpm -i http://repo.ajenti.org/ajenti-repo-1.0-1.noarch.rpm 
+rpm -i http://repo.ajenti.org/ajenti-repo-1.0-1.noarch.rpm
 echo "Устанавливаем Ajenti"
 yum -y install ajenti
 echo "Устанавливаем Ajenti V"
@@ -291,6 +376,7 @@ br
 wait
 }
 
+##------------------≠------------------
 mtu_change()
 {
 ifconfig $1 mtu $2
@@ -315,7 +401,9 @@ exist=false
 fi
 }
 
-#функция которая открывает на редактирование файл в приоритете: mc, nano, vi
+##------------------≠------------------
+## функция которая открывает на редактирование файл
+## в приоритете: mc, nano, vi
 edit()
 {
 installed mc
@@ -352,16 +440,19 @@ else
 fi
 }
 
-#определяем ip на внешнем интерфейсе
+##------------------≠------------------
+# определяем ip на внешнем интерфейсе
 whatismyip()
 {
 whatismyiface
 case "$osver1" in
 4|5|6)
 ip=`ifconfig $iface | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
+sleep 7
 ;;
 7)
 ip=`ifconfig $iface | grep 'inet' | sed q | awk {'print $2'}`
+sleep 7
 ;;
 *)
 echo "Версия ОС неизвестна. Выходим."
@@ -370,6 +461,7 @@ wait
 esac
 }
 
+##------------------≠------------------
 #определяем внешний IP через запрос
 whatismyipext()
 {
@@ -426,11 +518,11 @@ esac
 }
 
 bench_cpu () {
-threads=$cpu_cores #делаем кол-во потоков, равное кол-ву ядер
-if [ -z $threads ]; then threads=1; fi #если по какой-то причине мы не знаем сколько ядер, ставим в один поток
+threads=$cpu_cores								#делаем кол-во потоков, равное кол-ву ядер
+if [ -z $threads ]; then threads=1; fi			#если по какой-то причине мы не знаем сколько ядер, ставим в один поток
 #if [ -z $cpu_clock ]; then cpu_clock=2394; fi #если по какой-то причине мы не знаем свою частоту, то берем эталонную
 totalspeed=$(sysbench cpu --cpu-max-prime=10000 run --num-threads=$threads | grep "events per second:" | awk {'print $4'}) #записали общую скорость
-temp=$(echo "${totalspeed/./}") #убрали точку, т.е. умножили на 100.
+temp=$(echo "${totalspeed/./}")					#убрали точку, т.е. умножили на 100.
 if [ ${temp:0:1} -eq 0 ]; then temp=$(echo "${temp:1}"); fi #проверили нет ли нуля в начале, если есть - убрали
 reference=75000 #скорость на эталонном процессоре, умноженная на 100.
 #let "discountpower = $power * 2394 / $cpu_clock" #сколько тестов он бы прошёл при той же частоте, что и эталонный процессор
@@ -463,11 +555,11 @@ bench_hdd () {
           if [ ${#mb} -eq 2 ]; then let "mb=$mb*1024/100"; else #переводим сотвые долги гигабайт в мегабайты
             if [ ${#mb} -eq 3 ]; then let "mb=$mb*1024/1000"; else #переводим тысячные долги гигабайт в мегабайты
             mb=0
-            fi   
+            fi
           fi
         fi
         let "ioraw=$gb*1024+$mb"
-        else ioraw=$( echo $io | awk 'NR==1 {print $1}' )           
+        else ioraw=$( echo $io | awk 'NR==1 {print $1}' )
         fi
 
         if [ $(echo $io2 | awk '{print $2}') = "GB/s" ] #проверили а не гигабайты ли это
@@ -479,11 +571,11 @@ bench_hdd () {
           if [ ${#mb} -eq 2 ]; then let "mb=$mb*1024/100"; else #переводим сотвые долги гигабайт в мегабайты
             if [ ${#mb} -eq 3 ]; then let "mb=$mb*1024/1000"; else #переводим тысячные долги гигабайт в мегабайты
             mb=0
-            fi   
+            fi
           fi
         fi
         let "ioraw2=$gb*1024+$mb"
-        else ioraw2=$( echo $io2 | awk 'NR==1 {print $1}' )           
+        else ioraw2=$( echo $io2 | awk 'NR==1 {print $1}' )
         fi
 
         if [ $(echo $io3 | awk '{print $2}') = "GB/s" ] #проверили а не гигабайты ли это
@@ -495,16 +587,16 @@ bench_hdd () {
           if [ ${#mb} -eq 2 ]; then let "mb=$mb*1024/100"; else #переводим сотвые долги гигабайт в мегабайты
             if [ ${#mb} -eq 3 ]; then let "mb=$mb*1024/1000"; else #переводим тысячные долги гигабайт в мегабайты
             mb=0
-            fi   
+            fi
           fi
         fi
         let "ioraw3=$gb*1024+$mb"
-        else ioraw3=$( echo $io3 | awk 'NR==1 {print $1}' )           
+        else ioraw3=$( echo $io3 | awk 'NR==1 {print $1}' )
         fi
 
         ioall=$( awk 'BEGIN{print '$ioraw' + '$ioraw2' + '$ioraw3'}' )
         ioavg=$( awk 'BEGIN{print '$ioall'/3}' )
-        
+
         echo "Среднее значение: $ioavg MB/s"
 }
 
@@ -526,11 +618,11 @@ let "hdd_free_mb=$hdd_free / 1024"
 uptime=$(uptime | sed -e "s/ * / /g") #сразу берем аптайм без двойных пробелов
 uptime=$(echo "${uptime%,* user*}")
 uptime=$(echo "${uptime#*up }")
-echo "                            HDD: $hdd_total_mb Mb (свободно $hdd_free_mb Mb)"
-echo "                             ОС: $osfamily $osver2"
-echo "                 Разрядность ОС: $arc bit"
-echo "              Версия ядра Linux: $kern"
-echo "                 Аптайм системы: $uptime"
+echo "                            HDD:  $hdd_total_mb Mb (свободно $hdd_free_mb Mb)"
+echo "                             ОС:  $osfamily $osver2"
+echo "                 Разрядность ОС:  $arc bit"
+echo "              Версия ядра Linux:  $kern"
+echo "                 Аптайм системы:  $uptime"
 if [ ${#iface} -eq 4 ]; then #проверяем какой сетевой интерфейс. Если мы его не определили, то вообще не выводим эту строку
 echo "      Ваш IP на интерфейсе $iface: $ip"; fi #длина строки подобрана под eth0
 if [ ${#iface} -eq 8 ]; then
@@ -540,17 +632,12 @@ echo "Ваш внешний IP определяется как: $ipext"
 
 about()
 {
-echo "Данную утилиту написал Павел Евтихов (aka Brizovsky).
-г. Екатеринбург, Россия.
-2016-2019 год.
+echo "Данную утилиту Дополнил и Исправил $FNAME $LNAME ($NIKNAME).
+г. Киев, Украина.
+2020-2021 год.
 "
 }
-changelog()
-{
-wget $updpath/changelog.txt -r -N -nd
-cat changelog.txt
-br
-}
+changelog() { wget $updpath/changelog.txt -r -N -nd;cat changelog.txt;br; }
 
 log()
 {
@@ -559,7 +646,7 @@ changelog
 
 release() #функция принудительной загрузки релиза
 {
-wget https://raw.githubusercontent.com/Brizovsky/Breeze-Easy-Shell/master/$filename -r -N -nd --no-check-certificate
+wget https://raw.githubusercontent.com/numbnet/Needfull-Red-Shell-Script/master/$filename -r -N -nd --no-check-certificate
 chmod 777 $filename
 sh $0
 exit
@@ -567,7 +654,7 @@ exit
 
 beta() #функция принудительной загрузки Бета-версии
 {
-wget https://raw.githubusercontent.com/Brizovsky/Breeze-Easy-Shell/beta/$filename -r -N -nd --no-check-certificate
+wget https://raw.githubusercontent.com/numbnet/Needfull-Red-Shell-Script/beta/$filename -r -N -nd --no-check-certificate
 chmod 777 $filename
 sh $0
 exit
@@ -580,22 +667,22 @@ exit
 title_full_len=${#title_full}
 title_len=${#title}
 space=""
-      let "space_len=43-$title_full_len" 
+      let "space_len=43-$title_full_len"
       while [ "${#space}" -le $space_len ]
       do
       space=$space" "
       done
 
 space2=""
-      let "space2_len=30-$title_len" 
+      let "space2_len=30-$title_len"
       while [ "${#space2}" -le $space2_len ]
       do
       space2=$space2" "
       done
 
-filename='breeze.sh'
-#updpath='https://raw.githubusercontent.com/Brizovsky/Breeze-Easy-Shell/master' #релиз
-updpath='https://raw.githubusercontent.com/Brizovsky/Breeze-Easy-Shell/beta' #бета
+filename='needress.sh'
+#updpath='https://raw.githubusercontent.com/numbnet/Needfull-Red-Shell-Script/master' #релиз
+updpath='https://raw.githubusercontent.com/numbnet/Needfull-Red-Shell-Script/beta' #бета
 
 #определяем сколько RAM
 mem_total=`cat /proc/meminfo | grep MemTotal | awk '{print $2}'`
@@ -632,7 +719,7 @@ if [ "$osfamily" == "CentOS Linux" ]; then osfamily="CentOS"; fi
 arc=`arch`
 if [ "$arc" == "x86_64" ]; then arc=64 #В теории возможно обозначение "IA-64" и "AMD64", но я не встречал
 else arc=32 #Чтобы не перебирать все возможные IA-32, x86, i686, i586 и т.д.
-fi 
+fi
 
 #определяем версию ядра Linux
 kern=`uname -r | sed -e "s/-/ /" | awk {'print $1'}`
@@ -1000,7 +1087,7 @@ fi
     echo "Начинаем обновление ОС..."
     yum update -y
     echo "ОС была успешно обновлена."
-    wait    
+    wait
     ;;
     3) #Установить популярные приложения
     echo "Сечас будут установлены следующие программы:"
@@ -1019,7 +1106,7 @@ fi
     if [ $osver1 -eq 7 ]; then yum -y install net-tools; fi #Только для CentOS 7
     br
     echo "Программы были установлены."
-    wait    
+    wait
     ;;
     4) #Антивирус
     chosen2=4
@@ -1118,7 +1205,7 @@ fi
         y|Y)
         echo "Начинаем настройку iptables"
 		#Проверка на CentOS 7
-        if [ $osver1 -eq 7 ]; then 
+        if [ $osver1 -eq 7 ]; then
         systemctl stop firewalld
 		systemctl mask firewalld
 		myinstall iptables-services | tee > /dev/null
@@ -1230,7 +1317,7 @@ fi
       wait
       ;;
       4) #Перезапустить firewall
-      if [ $osver1 -eq 7 ]; then 
+      if [ $osver1 -eq 7 ]; then
 	  myinstall iptables-services | tee > /dev/null
       fi
       service iptables restart
@@ -1253,7 +1340,7 @@ fi
       ;;
 	  3)
       taffic_type=fwd
-      ;;      
+      ;;
       *)
       echo "Неправильный выбор. Аварийный выход."
       wait
@@ -1306,7 +1393,7 @@ fi
       	;;
 	  	3)
       	section=FORWARD
-      	;;      
+      	;;
       	*)
       	echo "Неправильный выбор. Аварийный выход."
       	wait
@@ -1346,7 +1433,7 @@ fi
     case "$pick" in
 		1) #Проверить запущен ли планировщик (cron)
 		installed crond
-		if [ $exist == false ]; then 
+		if [ $exist == false ]; then
 			echo "Сервис Cron не установлен. Установить?"
 			myread_yn pick
 			case "$pick" in
@@ -1386,7 +1473,7 @@ fi
 					br
 					wait
 					;;
-				esac	
+				esac
 				;;
 			esac
 		fi
@@ -1434,37 +1521,37 @@ fi
 				;;
 				2)
 				echo "*/30 * * * * $cron_task" >> /var/spool/cron/$(whoami)
-				echo "Готово. Задание будет выполняться каждые 30 минут"					
+				echo "Готово. Задание будет выполняться каждые 30 минут"
 				;;
 				3)
 				echo "*/20 * * * * $cron_task" >> /var/spool/cron/$(whoami)
-				echo "Готово. Задание будет выполняться каждые 20 минут"				
+				echo "Готово. Задание будет выполняться каждые 20 минут"
 				;;
 				4)
 				echo "*/15 * * * * $cron_task" >> /var/spool/cron/$(whoami)
-				echo "Готово. Задание будет выполняться каждые 15 минут"				
+				echo "Готово. Задание будет выполняться каждые 15 минут"
 				;;
 				5)
 				echo "*/10 * * * * $cron_task" >> /var/spool/cron/$(whoami)
-				echo "Готово. Задание будет выполняться каждые 10 минут"				
+				echo "Готово. Задание будет выполняться каждые 10 минут"
 				;;
 				6)
 				echo "*/5 * * * * $cron_task" >> /var/spool/cron/$(whoami)
-				echo "Готово. Задание будет выполняться каждые 5 минут"				
+				echo "Готово. Задание будет выполняться каждые 5 минут"
 				;;
 				7)
 				echo "*/2 * * * * $cron_task" >> /var/spool/cron/$(whoami)
-				echo "Готово. Задание будет выполняться каждые 2 минуты"				
+				echo "Готово. Задание будет выполняться каждые 2 минуты"
 				;;
 				8)
 				echo "* * * * * $cron_task" >> /var/spool/cron/$(whoami)
-				echo "Готово. Задание будет выполняться каждую минуту"				
+				echo "Готово. Задание будет выполняться каждую минуту"
 				;;
 				0)
 				;;
 				*)
 				echo "Неправильный выбор..."
-				;;				
+				;;
 			esac
 			;;
 			3)
@@ -1498,29 +1585,29 @@ fi
 				;;
 				2)
 				echo "0 */12 * * * $cron_task" >> /var/spool/cron/$(whoami)
-				echo "Готово. Задание будет выполняться каждые 12 часов"					
+				echo "Готово. Задание будет выполняться каждые 12 часов"
 				;;
 				3)
 				echo "0 */8 * * * $cron_task" >> /var/spool/cron/$(whoami)
-				echo "Готово. Задание будет выполняться каждые 8 часов"					
+				echo "Готово. Задание будет выполняться каждые 8 часов"
 				;;
 				4)
 				echo "0 */6 * * * $cron_task" >> /var/spool/cron/$(whoami)
-				echo "Готово. Задание будет выполняться каждые 6 часов"					
+				echo "Готово. Задание будет выполняться каждые 6 часов"
 				;;
 				5)
 				echo "0 */4 * * * $cron_task" >> /var/spool/cron/$(whoami)
-				echo "Готово. Задание будет выполняться каждые 4 часа"					
+				echo "Готово. Задание будет выполняться каждые 4 часа"
 				;;
 				6)
 				echo "0 */2 * * * $cron_task" >> /var/spool/cron/$(whoami)
-				echo "Готово. Задание будет выполняться каждые 2 часа"					
+				echo "Готово. Задание будет выполняться каждые 2 часа"
 				;;
 				0)
 				;;
 				*)
 				echo "Неправильный выбор..."
-				;;	
+				;;
 			esac
 			;;
 			4)
@@ -1605,7 +1692,7 @@ fi
 		0) #Выйти на уровень вверх
 		chosen2=0
 		;;
-	esac	
+	esac
     ;;
     7) #Установить часовой пояс
     my_clear
@@ -1787,7 +1874,7 @@ myread_dig pick
           wait
           ;;
         esac
-        ;; 
+        ;;
       esac
       ;;
       n|N|т|Т)
@@ -1805,6 +1892,7 @@ myread_dig pick
     echo 'Системные требования: 512 MB RAM (minimum)'
     echo 'Лицензия: Панель управления полностью бесплатна.'
     echo 'Язык: Английский'
+	echo "У вас CentOS $osver1.x."
     br
     echo "ВНИМАНИЕ! Данная панель будет устанавливаться очень долго (до 1 часа)!"
     br
@@ -1813,12 +1901,21 @@ myread_dig pick
     case "$pick" in
       y|Y)
       case "$osver1" in
-        5|7)
+        5)
         echo "У вас CentOS $osver1.x. Данная панель управления не поддерживает эту версию. Выходим."
         wait
         ;;
         6)
+        echo "У вас CentOS $osver1.x. Данная панель управления поддерживает эту версию. "
         cwp_install
+        ;;
+        7)
+        echo "У вас CentOS $osver1.x. Данная панель управления поддерживает эту версию. "
+        cwp7_install
+        ;;
+        8)
+        echo "У вас CentOS $osver1.x. Данная панель управления поддерживает эту версию. "
+        cwp8_install
         ;;
         0)
         echo 'нам не удалось определить Вашу ОС. Возможно, она не поддерживается Webuzo.'
@@ -1835,7 +1932,7 @@ myread_dig pick
           wait
           ;;
         esac
-        ;; 
+        ;;
       esac
       ;;
       n|N|т|Т)
@@ -1849,24 +1946,30 @@ myread_dig pick
     7) #ZPanel CP
     my_clear
     echo 'Панель управления "ZPanel CP"'
-    echo 'Поддержка ОС: CentOS 6.x | RHEL 6.x'
+    echo "Поддержка ОС: CentOS 6.x. -7.x.| RHEL 6.x.-7.x"
     echo 'Системные требования: не указаны разработчиком'
     echo 'Лицензия: Панель управления полностью бесплатна.'
     echo 'Язык: Английский, немецкий'
+	echo "У вас CentOS $osver1.x."
     br
-    echo 'ВНИМАНИЕ! Поддержка данной панели давно прекращена, русификации нет. Устанавливайте на свой страх и риск.'
+    echo 'ВНИМАНИЕ! Устанавливайте на свой страх и риск.'
     br
-    echo 'Хотите установить?'
+    echo '!!!!     Хотите установить?    !!!!'
     myread_yn pick
     case "$pick" in
       y|Y)
       case "$osver1" in
-        5|7)
+        5)
         echo "У вас CentOS $osver1.x. Данная панель управления не поддерживает эту версию. Выходим."
         wait
         ;;
         6)
+        echo "У вас CentOS $osver1.x."
         zpanel_install
+        ;;
+        7)
+        echo "У вас CentOS $osver1.x."
+        zpanel7_install
         ;;
         0)
         echo 'нам не удалось определить Вашу ОС. Возможно, она не поддерживается Webuzo.'
@@ -1874,7 +1977,8 @@ myread_dig pick
         myread_yn ans
         case "$ans" in
           y|Y)
-          zpanel_install
+        echo "У вас CentOS $osver1.x."
+          zpanel7_install
           ;;
           n|N|т|Т)
           ;;
@@ -1883,7 +1987,7 @@ myread_dig pick
           wait
           ;;
         esac
-        ;; 
+        ;;
       esac
       ;;
       n|N|т|Т)
@@ -1930,7 +2034,7 @@ myread_dig pick
           wait
           ;;
         esac
-        ;; 
+        ;;
       esac
       ;;
       n|N|т|Т)
@@ -2016,7 +2120,7 @@ END
           echo "localip $ip" >> /etc/pptpd.conf
           echo "remoteip 10.1.0.1-100" >> /etc/pptpd.conf
           #autostart pptpd
-          chkconfig pptpd on          
+          chkconfig pptpd on
           # adding new user
           echo "$u * $p *" >> /etc/ppp/chap-secrets
           # правим mtu для 10 ppp-юзеров
@@ -2063,7 +2167,7 @@ END
     edit /etc/ppp/chap-secrets
     ;;
     4) #Добавить правила для работы VPN в IPTables
-    whatismyip_full    
+    whatismyip_full
     iptables -I INPUT -p 47 -j ACCEPT
     iptables -I OUTPUT -p 47 -j ACCEPT
 	openport in tcp 1723
@@ -2076,7 +2180,7 @@ END
     myread_yn ans
     case "$ans" in
       y|Y)
-      iptables_save  
+      iptables_save
       ;;
     esac
     br
@@ -2290,7 +2394,7 @@ END
 	echo "Укажите логин пользователя:"
 	read login
 	login_lower=$(echo $login | tr [:upper:] [:lower:]) #Перевели логин в нижний регстр, без этого авторизация вообще не будет проходить
-	htpasswd /etc/squid/internet_users $login_lower    
+	htpasswd /etc/squid/internet_users $login_lower
 	br
 	echo "Пользователь $login был успешно добавлен в файл настроек"
 	wait
@@ -2306,7 +2410,7 @@ END
     br
     wait
     edit /etc/squid/internet_users
-    ;;    
+    ;;
     7) #Перезапустить сервис Proxy (Squid)
     service squid restart
     echo 'Готово'
@@ -2353,14 +2457,14 @@ myread_dig pick
         uninstall $answer
         br
         echo "Готово."
-        wait    
+        wait
     fi
     ;;
     4) #Посмотреть сколько свободного места на диске
     br
     df -h
     br
-    wait    
+    wait
     ;;
     0)
     chosen=0
@@ -2413,7 +2517,7 @@ myread_dig pick
 		br
 		echo "Готово. Логи были очищены и было освобождено $freespace Мб."
 		br
-		wait    
+		wait
     ;;
     esac
     ;;
@@ -2430,7 +2534,7 @@ myread_dig pick
 	br
     df -h
     br
-    wait    
+    wait
     ;;
     0)
     chosen=0
@@ -2444,9 +2548,11 @@ myread_dig pick
 8) #терминал
 chosen=8
 my_clear
-echo '┌──────────┐'
-echo '│ Терминал │'
-echo '└──────────┘'
+##==================≠==================
+echo '┌─────────┐'
+echo '│─Терминал─│'
+echo '└─────────┘'
+##==================≠==================
 echo "Здесь вы можете ввести любую команду, которую поддерживает bash."
 echo "Кроме этого, поддерживаются внутренние команды $title"
 echo 'Такие как: myinstall, uninstall, openport, changelog, updatescript, about и др.'
@@ -2480,6 +2586,7 @@ wait
 ;;
 esac
 done
+
 echo "Скрипт ожидаемо завершил свою работу."
 echo -e "$normal"
 clear
