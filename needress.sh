@@ -1,8 +1,8 @@
 #!/bin/bash
 
-FileName="breenet.sh"
+FileName="needress.sh"
 ver="v2.0.5"
-title="New Breezze Easy Shell"
+title="Needfull Shell Script"
 
 title_full="$title $ver"
 
