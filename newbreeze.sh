@@ -1,7 +1,10 @@
 #!/bin/bash
-ver="v1.9.2"
-title="Breeze Easy Shell"
+ver="v2.0.5"
+OLDver="v2.0.5"
+title="New Breezze Easy Shell"
+OLD_title="Breeze Easy Shell"
 title_full="$title $ver"
+comment="Based on the script $OLD_title $OLDver"
 #-----------------
 #типовые функции
 #-----------------
