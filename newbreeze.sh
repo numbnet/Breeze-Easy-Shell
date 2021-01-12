@@ -1,6 +1,6 @@
 #!/bin/bash
 ver="v2.0.5"
-OLDver="v2.0.5"
+OLDver="v1.9.2"
 title="New Breezze Easy Shell"
 OLD_title="Breeze Easy Shell"
 title_full="$title $ver"
